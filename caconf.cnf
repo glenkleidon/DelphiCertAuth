@@ -62,10 +62,10 @@ x509_extensions         = root_ca_extensions
 # your local environment!
 #
 [ root_ca_distinguished_name ]
-commonName              = ROOT_W10Dev01.DEVELOPMENT.LOCAL
-stateOrProvinceName     = VIC
-countryName             = AU
-emailAddress            = root@W10Dev01.DEVELOPMENT.LOCAL
+commonName              = ROOT_MYCOMPUTER.DEVELOPMENT.LOCAL
+stateOrProvinceName     = XXX
+countryName             = XX
+emailAddress            = root@MYCOMPUTER.DEVELOPMENT.LOCAL
 organizationName        = Information Technology
 organizationalUnitName  = Development
 #

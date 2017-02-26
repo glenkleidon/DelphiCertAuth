@@ -1,5 +1,7 @@
-::https://dev.to/ruidfigueiredo/using-openssl-to-create-certificates
-::@echo off
+::Create a Certificate Authority and Generate Certificates (Delphi Indy)
+::Based on the article by Rui Figueiredo at 
+::  https://dev.to/ruidfigueiredo/using-openssl-to-create-certificates
+@echo off
 SET ssldir=%CD%\
 SET authorityPath=.\
 SET authPath=%authorityPath:\=/%
