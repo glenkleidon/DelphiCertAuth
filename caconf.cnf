@@ -5,7 +5,7 @@ default_ca      = local_ca
 # Default location of directories and files needed to generate certificates.
 #
 [ local_ca ]
-dir             = C:/ProgramData/openssl/x64/bin/certAuthority
+dir             = ./
 certificate     = $dir/certificateAuthorityCertificate.pem
 database        = $dir/index.txt
 new_certs_dir   = $dir/certificates
@@ -62,10 +62,10 @@ x509_extensions         = root_ca_extensions
 # your local environment!
 #
 [ root_ca_distinguished_name ]
-commonName              = ROOT_MYCOMPUTER.DEVELOPMENT.LOCAL
+commonName              = root.mycomputer.development.local
 stateOrProvinceName     = XXX
 countryName             = XX
-emailAddress            = root@MYCOMPUTER.DEVELOPMENT.LOCAL
+emailAddress            = root@mycomputer.development.local
 organizationName        = Information Technology
 organizationalUnitName  = Development
 #
