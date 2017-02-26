@@ -169,10 +169,10 @@ Now a valid certificate file has been generated.  For Delphi and NodeJS developm
 is needed.  However, it if often a good idea to import the certificates into the windows 
 key store.  It is easiest to do this with a PFX file.
 
-A PFX file will now be generated - once again a password is needed to access the PFX file after it is generated. 
-But first, Because you need to access the client private key in order to create the PFX, you will
-be prompted for the Private Key password first, and then you will need create a password to use
-with the PFX file.  You will need to enter and verify the PFX file.
+A PFX file will now be generated - this file is also password protected. 
+First, because you need to access the client private key in order to create the PFX, you will
+be prompted for the Private Key password, and then you will need create a password to use
+with the PFX file.  You will need to enter and then verify the PFX file.
 ````
 Outputting a PFX file - Requires a PFX password
 -----------------------------------------------
