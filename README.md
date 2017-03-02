@@ -54,14 +54,14 @@ separate PEM files.
 | test.global-health.comCertificate.pem  | Certifcate file                        | 
 | test.global-health.comPrivateKey.pem   | Private key (keep secure!!)            | 
 | test.global-health.com.pfx             | PFX file for windows certificate store |
-| root_cert.crt                          | Public Root Certificate file (a\ "Trusted root certificate" file) |
+| root_cert.crt                          | Public Root Certificate file (a "Trusted root certificate" file) |
 
-The certificate authority's public root certificate is also required.  This\
-is also create as a PEM file.  For other environments, the PFX (p12) files are required.\
+The certificate authority's public root certificate is also required.  This
+is also create as a PEM file.  For other environments, the PFX (p12) files are required.
 These files include all three parts in a single file.  
 
 ## Example 
-As you can appreciate, the security of a password is very important.  So be warned, there are a LOT\
+As you can appreciate, the security of a password is very important.  So be warned, there are a LOT
 of passwords you need to enter and re-enter.  This is just the way it is  
 so be prepared.  It is also quite important that you choose passwords for your development 
 environment that can be safely passed around to other developers, so DONT be tempted to use 
@@ -106,7 +106,7 @@ After confirming that the Authority Certificate is valid, the certificate can no
 Firstly you will be prompted to enter the details for the certificate.  This is identical
 to the steps followed for the Authority.  
 
-**__For web server certificates, make sure you use the exact, fully qualified name for the 
+**__For web server certificates, make sure you make the <COMMON NAME> the exact, fully qualified name for the 
 computer where you intend to run the web server__**
 
 For windows look at the PROPERTIES of the Computer.  For Linux look at the HOSTNAME environment variable
