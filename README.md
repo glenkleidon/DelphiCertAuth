@@ -106,7 +106,7 @@ After confirming that the Authority Certificate is valid, the certificate can no
 Firstly you will be prompted to enter the details for the certificate.  This is identical
 to the steps followed for the Authority.  
 
-**__For web server certificates, make sure you make the <COMMON NAME> the exact, fully qualified name for the 
+**__For web server certificates, make sure you make the \<COMMON NAME\> the exact, fully qualified name for the 
 computer where you intend to run the web server__**
 
 For windows look at the PROPERTIES of the Computer.  For Linux look at the HOSTNAME environment variable
