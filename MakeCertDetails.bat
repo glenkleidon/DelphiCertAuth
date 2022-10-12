@@ -69,7 +69,8 @@ echo basicConstraints        = CA:FALSE>> %Outfile%
 echo keyUsage                = digitalSignature, keyEncipherment>> %Outfile%
 echo subjectAltName          = @alternate_names>> %Outfile%
 echo [ alternate_names]>> %Outfile%
-echo DNS.1     =  %commonName%>> %Outfile%
+echo DNS.1     = %commonName%>> %Outfile%
+echo DNS.2     = localhost>> %Outfile% 
 
 :SUCCESS
 exit /b 0
