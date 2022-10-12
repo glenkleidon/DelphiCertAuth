@@ -5,7 +5,8 @@
 SET ssldir=%CD%\
 SET authorityPath=.\
 SET authPath=%authorityPath:\=/%
-SET auConfig=%authPath%caconf.cnf
+SET auConfig=%authPath%caconf.cfn
+SET BIGTEXT=type .\headings\
 SET commonName=%1
 if NOT DEFINED commonName (
   echo Certificate Name not specified eg "newcert computer1.domain.local"
@@ -27,8 +28,10 @@ SET OPENSSL_CONF=%auConfig%
 if %ERRORLEVEL% NEQ 0 (
 echo Missing certificate or SSL
 GOTO NEWAUTH
+pause
 )
-
+echo. 
+echo Certificate Authority certificate OK
 if not EXIST "%authpath%certificates" (
 mkdir "%authpath%certificates"   
 )
@@ -38,43 +41,49 @@ if not EXIST "index.txt" echo >NUL 2>index.txt
 if /I %OPTIONS%==sign GOTO SIGN
 
 ::did that work??
-echo Outputting a Private Key and a CSR - Requires Key password
-echo -----------------------------------------------------------
+echo.
 SET OPENSSL_CONF=%clientDetails%
 IF NOT EXIST %OPENSSL_CONF% CALL makeCertDetails %commonName% %clientPath%
 IF %ERRORLEVEL% NEQ 0 EXIT /b
+echo.
+%BIGTEXT%KeyPassword.txt
 %ssldir%openssl req -out %authClientPath%/%commonName%Csr.pem -newkey rsa:2048 -keyout %authClientPath%/%commonName%PrivateKey.pem
-echo %OPENSSL_CONF%
 
 :SIGN
-echo Outputting Certificate file
-echo ---------------------------
+echo Sign Certificate with Key Authority Certificate
+echo -----------------------------------------------
+echo.
 SET OPENSSL_CONF=%auConfig%
 :RETRYSIGN
-%ssldir%openssl ca -in %authClientPath%/%commonName%Csr.pem -out %authClientPath%/%commonName%Certificate.pem
+%BIGTEXT%CAPassword.txt
+%ssldir%openssl ca -in %authClientPath%/%commonName%Csr.pem -out %authClientPath%/%commonName%Certificate.pem -extfile %auConfigFileStem%.user.txt -verbose
 if %ERRORLEVEL% NEQ 0 (
 echo failed. 
 pause
 GOTO RETRYSIGN
 )
-
-echo Outputting a PFX file - Requires a PFX password
-echo -----------------------------------------------
+echo.
+echo Outputting a PFX file
+echo ---------------------
+echo.
+%BIGTEXT%KeyPassword.txt
+%BIGTEXT%thenPFXpassword.txt
 %ssldir%openssl pkcs12 -export -in %authClientPath%/%commonName%Certificate.pem -inkey %authClientPath%/%commonName%PrivateKey.pem -out %authClientPath%/%commonName%.pfx
+echo.
 echo Outputing A copy of the ROOT cert
-echo -----------------------------------------------
+echo ----------------------------------
+echo.
 %ssldir%\openssl x509 -in %authPath%certificateAuthorityCertificate.pem -out %authClientPath%/root_cert.crt -outform DER
 EXIT /b
 
 :NEWAUTH
-echo Generating New Signing certificate
-del %authorityPath%certificateAuthorityCertificate.pem
-del %authorityPath%certificateAuthorityPrivateKey.pem
-del %authorityPath%certificates\*.*
+%BIGTEXT%Create.txt
+%BIGTEXT%Authority.txt
 SET OPENSSL_CONF=%auConfig%
-SET OPENSSL_CONF_NAME=%auConfigFileStem%%authconfextn%
 echo Setting config to: "%auConfig%" (%OPENSSL_CONF_NAME%)
-TYPE %auConfigFileStem%.1.txt>%OPENSSL_CONF_NAME%
-TYPE %auConfigFileStem%.2.txt>>%OPENSSL_CONF_NAME%
+echo Generating New Signing certificate
+echo ----------------------------------
+echo.
+%BIGTEXT%CAPassword.txt
 %ssldir%openssl req -x509 -out certificateAuthorityCertificate.pem -newkey rsa:2048 -keyout certificateAuthorityPrivateKey.pem -days 3650
 GOTO CHECK

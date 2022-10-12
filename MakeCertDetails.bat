@@ -15,6 +15,9 @@ IF NOT EXIST %outputFolder% mkdir "%outputFolder%"
 SET Outfile=%outputFolder%/%commonName%.certdetails.txt
 
 :GETDETAILS
+echo.
+%BIGTEXT%create.txt
+%BIGTEXT%CertRequest.txt
 echo Enter certifcate Details for %commonName%
 echo ========================================================
 ::Email Address
@@ -63,7 +66,10 @@ echo organizationalUnitName  = %organizationalUnitName%>> %Outfile%
 echo.>>%Outfile%
 echo [ v3_req ]>> %Outfile%
 echo basicConstraints        = CA:FALSE>> %Outfile%
-echo keyUsage                = nonRepudiation, digitalSignature, keyEncipherment>> %Outfile%
+echo keyUsage                = digitalSignature, keyEncipherment>> %Outfile%
+echo subjectAltName          = @alternate_names>> %Outfile%
+echo [ alternate_names]>> %Outfile%
+echo DNS.1     =  %commonName%>> %Outfile%
 
 :SUCCESS
 exit /b 0
