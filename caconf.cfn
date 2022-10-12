@@ -15,8 +15,8 @@ serial          = $dir/serial
 #
 # Default expiration and encryption policies for certificates.
 #
-default_crl_days        = 365
-default_days            = 1825
+default_crl_days        = 60
+default_days            = 365
 default_md              = sha256
 #
 policy          = local_ca_policy
@@ -43,7 +43,10 @@ organizationalUnitName  = supplied
 # x509 extensions to use when generating server certificates.
 #
 [ local_ca_extensions ]
-basicConstraints        = CA:false
+subjectKeyIdentifier   = hash
+authorityKeyIdentifier = issuer
+basicConstraints       = critical, CA:true
+keyUsage               = keyCertSign, cRLSign
 #
 #
 # The default root certificate generation policy.
@@ -52,6 +55,7 @@ basicConstraints        = CA:false
 default_bits    = 2048
 default_keyfile = C:/ProgramData/openssl/x64/bin/certAuthority/certificateAuthorityPrivateKey.pem
 default_md      = sha256
+
 #
 prompt                  = no
 distinguished_name      = root_ca_distinguished_name

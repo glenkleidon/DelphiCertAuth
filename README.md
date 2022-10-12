@@ -4,8 +4,11 @@ These scripts were created primarily for Software development purposes - in part
 but can be used for NodeJS or any purpose really.
 
 ## Commands
-+ **newcert** \<common name\> [\<output path\>] [/sign]
++ **newcert** \<common name\> [\<output path\>] [\<options\>] [\/sign]
     + Creates a new certificate. If not present, a new Authority certificate is generated. If certificate details are not supplied, the user is prompted
+    **__common name__** Host Name on the certificate
+    **__output path__** Alternate path to save the certificate folder.
+    **__options__**  _openssl CA_ Signing options eg "-days 60" or "-subject ....."   
 + **makeCertDetails** \<common name\> \<output path\> 
     + Prompts the user for new certificate details only
 

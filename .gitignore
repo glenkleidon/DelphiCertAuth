@@ -1,0 +1,4 @@
+*.pem
+index.*
+serial*
+certificates/
