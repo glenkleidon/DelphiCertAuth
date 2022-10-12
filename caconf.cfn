@@ -52,6 +52,7 @@ basicConstraints        = CA:false
 default_bits    = 2048
 default_keyfile = C:/ProgramData/openssl/x64/bin/certAuthority/certificateAuthorityPrivateKey.pem
 default_md      = sha256
+
 #
 prompt                  = no
 distinguished_name      = root_ca_distinguished_name

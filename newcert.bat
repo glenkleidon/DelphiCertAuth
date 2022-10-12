@@ -72,5 +72,9 @@ del %authorityPath%certificateAuthorityCertificate.pem
 del %authorityPath%certificateAuthorityPrivateKey.pem
 del %authorityPath%certificates\*.*
 SET OPENSSL_CONF=%auConfig%
-%ssldir%openssl req -x509 -out certificateAuthorityCertificate.pem -newkey rsa:2048 -keyout certificateAuthorityPrivateKey.pem -days 365
+SET OPENSSL_CONF_NAME=%auConfigFileStem%%authconfextn%
+echo Setting config to: "%auConfig%" (%OPENSSL_CONF_NAME%)
+TYPE %auConfigFileStem%.1.txt>%OPENSSL_CONF_NAME%
+TYPE %auConfigFileStem%.2.txt>>%OPENSSL_CONF_NAME%
+%ssldir%openssl req -x509 -out certificateAuthorityCertificate.pem -newkey rsa:2048 -keyout certificateAuthorityPrivateKey.pem -days 3650
 GOTO CHECK

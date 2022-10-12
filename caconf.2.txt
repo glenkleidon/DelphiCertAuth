@@ -1,0 +1,19 @@
+#
+prompt                  = no
+distinguished_name      = root_ca_distinguished_name
+x509_extensions         = root_ca_extensions
+#
+#
+# Root Certificate Authority distinguished name.  Change these fields to match
+# your local environment!
+#
+[ root_ca_distinguished_name ]
+commonName              = root.mycomputer.development.local
+stateOrProvinceName     = XXX
+countryName             = XX
+emailAddress            = root@mycomputer.development.local
+organizationName        = Information Technology
+organizationalUnitName  = Development
+#
+[ root_ca_extensions ]
+basicConstraints        = CA:true
