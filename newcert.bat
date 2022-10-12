@@ -12,12 +12,13 @@ if NOT DEFINED commonName (
   echo Certificate Name not specified eg "newcert computer1.domain.local"
   EXIT /b
 )
-SET clientPath=%2
+SET clientPath=%~2
 if NOT DEFINED clientPath SET clientPath=%authorityPath%certificates\%commonName%
+echo CLIENT PATH [%clientPath%]
+
 SET clientDetails=%clientPath%\%commonName%.CertDetails.txt
-SET OPTIONS=%3
-IF NOT DEFINED OPTIONS SET OPTIONS=NONE
-SET OPTIONS=%OPTIONS:/=%
+SET OPTIONS=%~3
+echo OPTIONS = [%OPTIONS%]
 SET authClientPath=%clientPath:\=/%
 
 :CHECK
@@ -38,7 +39,7 @@ mkdir "%authpath%certificates"
 
 if not EXIST "serial" echo 01 > serial
 if not EXIST "index.txt" echo >NUL 2>index.txt
-if /I %OPTIONS%==sign GOTO SIGN
+::if /I %OPTIONS%==sign GOTO SIGN
 
 ::did that work??
 echo.
@@ -56,7 +57,7 @@ echo.
 SET OPENSSL_CONF=%auConfig%
 :RETRYSIGN
 %BIGTEXT%CAPassword.txt
-%ssldir%openssl ca -in %authClientPath%/%commonName%Csr.pem -out %authClientPath%/%commonName%Certificate.pem -verbose
+%ssldir%openssl ca -in %authClientPath%/%commonName%Csr.pem -out %authClientPath%/%commonName%Certificate.pem -verbose %OPTIONS%
 if %ERRORLEVEL% NEQ 0 (
 echo failed. 
 pause
