@@ -2,24 +2,44 @@
 ::Based on the article by Rui Figueiredo at 
 ::  https://dev.to/ruidfigueiredo/using-openssl-to-create-certificates
 @echo off
+
+@echo off
 SET ssldir=%CD%\
 SET authorityPath=.\
 SET authPath=%authorityPath:\=/%
 SET auConfig=%authPath%caconf.cfn
 SET BIGTEXT=type .\headings\
-SET commonName=%1
+SET commonName=%~1
 if NOT DEFINED commonName (
   echo Certificate Name not specified eg "newcert computer1.domain.local"
   EXIT /b
 )
 SET clientPath=%~2
 if NOT DEFINED clientPath SET clientPath=%authorityPath%certificates\%commonName%
-echo CLIENT PATH [%clientPath%]
 
 SET clientDetails=%clientPath%\%commonName%.CertDetails.txt
+SET SKIPTO=%4
 SET OPTIONS=%~3
-echo OPTIONS = [%OPTIONS%]
+if NOT DEFINED SKIPTO (
+  SET SIGNONLY=N
+) ELSE (
+  SET SIGNONLY=Y
+)
+IF DEFINED OPTIONS (
+  if "%OPTIONS%"=="/sign" (
+    SET SIGNONLY=Y
+    SET OPTIONS=
+  )
+)
+SET clientDetails=%clientPath%\%commonName%.CertDetails.txt
 SET authClientPath=%clientPath:\=/%
+echo Creating Certificate with these options:
+echo    COMMON NAME  [%commonName%]
+echo    OPTIONS      [%OPTIONS%]
+echo    SIGNONLY     [%SIGNONLY%]
+echo    CLIENT PATH  [%clientPath%]
+echo    REQUEST PATH [%authClientPath%]
+
 
 :CHECK
 echo Checking for valid root certificate
@@ -39,7 +59,7 @@ mkdir "%authpath%certificates"
 
 if not EXIST "serial" echo 01 > serial
 if not EXIST "index.txt" echo >NUL 2>index.txt
-::if /I %OPTIONS%==sign GOTO SIGN
+if /I "%SIGNONLY%"=="Y" GOTO SIGN
 
 ::did that work??
 echo.
@@ -59,7 +79,7 @@ SET OPENSSL_CONF=%auConfig%
 %BIGTEXT%CAPassword.txt
 %ssldir%openssl ca -in %authClientPath%/%commonName%Csr.pem -out %authClientPath%/%commonName%Certificate.pem -verbose %OPTIONS%
 if %ERRORLEVEL% NEQ 0 (
-echo failed. 
+echo ERROR %ERRORLEVEL% failed. 
 pause
 GOTO RETRYSIGN
 )
