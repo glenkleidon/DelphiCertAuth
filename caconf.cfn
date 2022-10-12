@@ -44,7 +44,7 @@ organizationalUnitName  = supplied
 #
 [ local_ca_extensions ]
 subjectKeyIdentifier   = hash
-authorityKeyIdentifier = keyid:always, issuer
+authorityKeyIdentifier = issuer
 basicConstraints       = critical, CA:true
 keyUsage               = keyCertSign, cRLSign
 #

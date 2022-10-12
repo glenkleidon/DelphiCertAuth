@@ -56,7 +56,7 @@ echo.
 SET OPENSSL_CONF=%auConfig%
 :RETRYSIGN
 %BIGTEXT%CAPassword.txt
-%ssldir%openssl ca -in %authClientPath%/%commonName%Csr.pem -out %authClientPath%/%commonName%Certificate.pem -extfile %auConfigFileStem%.user.txt -verbose
+%ssldir%openssl ca -in %authClientPath%/%commonName%Csr.pem -out %authClientPath%/%commonName%Certificate.pem -verbose
 if %ERRORLEVEL% NEQ 0 (
 echo failed. 
 pause
