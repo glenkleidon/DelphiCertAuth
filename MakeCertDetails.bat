@@ -66,7 +66,7 @@ echo organizationalUnitName  = %organizationalUnitName%>> %Outfile%
 echo.>>%Outfile%
 echo [ v3_req ]>> %Outfile%
 echo basicConstraints        = CA:FALSE>> %Outfile%
-echo keyUsage                = digitalSignature, keyEncipherment>> %Outfile%
+echo keyUsage                = digitalSignature, keyEncipherment, dataEncipherment>> %Outfile%
 echo subjectAltName          = @alternate_names>> %Outfile%
 echo [ alternate_names]>> %Outfile%
 echo DNS.1     = %commonName%>> %Outfile%
